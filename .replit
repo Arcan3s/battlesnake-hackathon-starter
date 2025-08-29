@@ -12,9 +12,24 @@ requirementsPath = "requirements.txt"
 run = "python main.py"
 
 [[ports]]
-localPort = 5000
+localPort = 8000
 externalPort = 80
 
 [deployment]
 # Deployment command — also just runs your app
 run = ["sh", "-c", "python main.py"]
+
+[workflows]
+runButton = "Run Battlesnake"
+
+[[workflows.workflow]]
+name = "Run Battlesnake"
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pip install -r requirements.txt"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python main.py"
