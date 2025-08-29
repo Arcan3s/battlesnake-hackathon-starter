@@ -8,28 +8,60 @@ channel = "stable-25_05"
 manager = "pip"
 requirementsPath = "requirements.txt"
 
-# Run button — no pip install here, just runs your app
-run = "python main.py"
+[[ports]]
+localPort = 5001
+externalPort = 3000
+
+[[ports]]
+localPort = 5002
+externalPort = 3002
+
+[[ports]]
+localPort = 5003
+externalPort = 3001
 
 [[ports]]
 localPort = 8000
 externalPort = 80
 
-[deployment]
-# Deployment command — also just runs your app
-run = ["sh", "-c", "python main.py"]
-
 [workflows]
-runButton = "Run Battlesnake"
+runButton = "Run Your Snake"
 
+# Run Battlesnake Workflow: 
 [[workflows.workflow]]
-name = "Run Battlesnake"
+name = "Run Your Snake"
 mode = "sequential"
 
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "pip install -r requirements.txt"
+  [[workflows.workflow.tasks]]
+  task = "shell.exec"
+  args = "pip install -r requirements.txt"
+  
+  [[workflows.workflow.tasks]]
+  task = "shell.exec"
+  args = "python main.py"
 
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python main.py"
+
+# Snakes Workflow: launches multiple snakes in parallel
+[[workflows.workflow]]
+name = "Run 3 Test Snakes"
+mode = "parallel"
+
+  # Snake A
+  [[workflows.workflow.tasks]]
+  task = "shell.exec"
+  # If you use separate files, run: "PORT=5001 python snake_a.py"
+  # If one file handles multiple snakes, use an ID env var too:
+  args = "PORT=5001 SNAKE_ID=A python main.py"
+  waitForPort = 5001
+
+  # Snake B
+  [[workflows.workflow.tasks]]
+  task = "shell.exec"
+  args = "PORT=5002 SNAKE_ID=B python main.py"
+  waitForPort = 5002
+
+  # Snake C (optional—add more as needed)
+  [[workflows.workflow.tasks]]
+  task = "shell.exec"
+  args = "PORT=5003 SNAKE_ID=C python main.py"
+  waitForPort = 5003
