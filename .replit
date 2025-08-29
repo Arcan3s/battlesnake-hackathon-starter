@@ -1,0 +1,20 @@
+modules = ["python-3.12", "bash"]
+
+[nix]
+channel = "stable-25_05"
+
+[packager]
+# This makes Replit automatically install requirements.txt
+manager = "pip"
+requirementsPath = "requirements.txt"
+
+# Run button — no pip install here, just runs your app
+run = "python main.py"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[deployment]
+# Deployment command — also just runs your app
+run = ["sh", "-c", "python main.py"]
