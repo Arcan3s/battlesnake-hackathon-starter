@@ -1,0 +1,6 @@
+[submodule "submodules/rules"]
+	path = submodules/rules
+	url = https://github.com/CarletonComputerScienceSociety/rules
+[submodule "submodules/board"]
+	path = submodules/board
+	url = https://github.com/CarletonComputerScienceSociety/board
