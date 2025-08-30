@@ -16,7 +16,7 @@ externalPort = 80
 # Test Snake #1
 [[ports]]
 localPort = 5001
-externalPort = 3000
+externalPort = 3001
 
 # Test Snake #2
 [[ports]]
@@ -26,7 +26,17 @@ externalPort = 3002
 # Test Snake #3
 [[ports]]
 localPort = 5003
-externalPort = 3001
+externalPort = 3003
+
+# Board Visualizer
+[[ports]]
+localPort = 3010
+externalPort = 3010
+
+# Rules Server
+[[ports]]
+localPort = 9999
+externalPort = 9999
 
 [workflows]
 runButton = "Run Your Snake"
@@ -61,6 +71,19 @@ waitForPort = 5002
 task = "shell.exec"
 args = "PORT=5003 SNAKE_ID=C python main.py"
 waitForPort = 5003
+
+[[workflows.workflow]]
+name = "Test Your Snake"
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash scripts/setup_board_rules.sh"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash scripts/test_your_snake.sh"
+waitForPort = 9999
 
 [deployment]
 run = ["sh", "-c", "python main.py"]
