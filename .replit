@@ -85,5 +85,17 @@ task = "shell.exec"
 args = "bash scripts/test_your_snake.sh"
 waitForPort = 9999
 
+[[workflows.workflow]]
+name = "Setup"
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pip install -r requirements.txt"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash scripts/setup.sh"
+
 [deployment]
 run = ["sh", "-c", "python main.py"]
