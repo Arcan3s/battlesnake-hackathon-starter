@@ -32,7 +32,7 @@ externalPort = 3001
 runButton = "Run Your Snake"
 
 [[workflows.workflow]]
-name = "Run Your Snake"
+name = "Run Your Snake Webserver"
 mode = "sequential"
 
 [[workflows.workflow.tasks]]
@@ -44,7 +44,7 @@ task = "shell.exec"
 args = "python main.py"
 
 [[workflows.workflow]]
-name = "Run 3 Test Snakes"
+name = "Run 3 Test Snake Webservers"
 mode = "parallel"
 
 [[workflows.workflow.tasks]]
