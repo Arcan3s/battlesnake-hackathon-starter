@@ -95,7 +95,7 @@ args = "pip install -r requirements.txt"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "bash scripts/setup.sh"
+args = "bash scripts/setup_submodules.sh"
 
 [deployment]
 run = ["sh", "-c", "python main.py"]
