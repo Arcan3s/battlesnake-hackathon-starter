@@ -2,7 +2,7 @@
 
 This is the starting template for the [Carleton Computer Science Society's](https://ccss.carleton.ca/) 2025 [Battlesnake Hackathon](https://ccss.carleton.ca/events/2025-2026/2025-09-13-battlesnake-hackathon/).
 
-<img height="800" alt="image" src="https://i.imgur.com/17V1Ksn.png" />
+<img width="1000" alt="image" src="https://i.imgur.com/17V1Ksn.png" />
 
 ## Getting Started
 
