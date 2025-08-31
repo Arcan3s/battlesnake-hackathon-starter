@@ -55,6 +55,15 @@ task = "shell.exec"
 args = "python main.py"
 
 [[workflows.workflow]]
+name = "Run Board and Rules Server"
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash scripts/run_board_rules.sh"
+waitForPort = 9999
+
+[[workflows.workflow]]
 name = "Setup Environment"
 mode = "sequential"
 
@@ -97,12 +106,3 @@ args = "bash scripts/env_doctor.sh"
 
 [deployment]
 run = ["sh", "-c", "python main.py"]
-
-[[workflows.workflow]]
-name = "Run Board and Rules Server"
-mode = "sequential"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "bash scripts/run_board_rules.sh"
-waitForPort = 9999
