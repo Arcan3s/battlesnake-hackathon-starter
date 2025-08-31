@@ -1,59 +1,66 @@
-# Battlesnake Python Starter Project
+# Battlesnake Hackathon Starter Project
 
-An official Battlesnake template written in Python. Get started at [play.battlesnake.com](https://play.battlesnake.com).
+This is the starting template for the [Carleton Computer Science Society's](https://ccss.carleton.ca/) 2025 [Battlesnake Hackathon](https://ccss.carleton.ca/events/2025-2026/2025-09-13-battlesnake-hackathon/).
 
-![Battlesnake Logo](https://media.battlesnake.com/social/StarterSnakeGitHubRepos_Python.png)
+<img width="1972" height="1070" alt="image" src="https://github.com/user-attachments/assets/5735cad2-b237-40a9-98c8-795f181ce03c" />
 
-This project is a great starting point for anyone wanting to program their first Battlesnake in Python. It can be run locally or easily deployed to a cloud provider of your choosing. See the [Battlesnake API Docs](https://docs.battlesnake.com/api) for more detail. 
+## Getting Started
 
-[![Run on Replit](https://repl.it/badge/github/BattlesnakeOfficial/starter-snake-python)](https://replit.com/@Battlesnake/starter-snake-python)
+### 1. Create Your Replit
+Click the button below to create a Replit project from this template:
 
-## Technologies Used
+[![Run on Replit](https://repl.it/badge/github/BattlesnakeOfficial/starter-snake-python)](https://replit.com/@MathyouMB/battlesnake-hackathon-starter)
 
-This project uses [Python 3](https://www.python.org/) and [Flask](https://flask.palletsprojects.com/). It also comes with an optional [Dockerfile](https://docs.docker.com/engine/reference/builder/) to help with deployment.
+---
 
-## Run Your Battlesnake
+### 2. Get Your Public Replit URL
+1. In Replit, open the **Network Manager** from the sidebar.  
 
-Install dependencies using pip
+<img width="200" alt="image" src="https://github.com/user-attachments/assets/b00cfd42-4125-40cd-918f-1371790bbb16" />
 
-```sh
-pip install -r requirements.txt
+2. Copy the public URL generated for your project:
+
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/88431cf6-962c-41d6-abd3-be4427715a88" />
+
+
+---
+
+### 3. Configure Your `.env` File
+1. In your Replit workspace, open the `.env` file.  
+2. Paste your Replit URL into the provided field:
+
+```env
+REPLIT_URL=<YOUR URL GOES HERE>
 ```
 
-Start your Battlesnake
+For example, it should look like:
 
-```sh
-python main.py
+```env
+REPLIT_URL=https://9c95fcee-9797-48b9-b44b-63da626565e3-00-2a7grjc4j9z5b.picard.replit.dev/
 ```
 
-You should see the following output once it is running
+---
 
-```sh
-Running your Battlesnake at http://0.0.0.0:8000
- * Serving Flask app 'My Battlesnake'
- * Debug mode: off
-```
+### 4. Run Environment Setup
 
-Open [localhost:8000](http://localhost:8000) in your browser and you should see
+Click the arrow to the right of the "run" button. Then click **Run Environment Setup**.
 
-```json
-{"apiversion":"1","author":"","color":"#888888","head":"default","tail":"default"}
-```
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/7e1edad9-4087-40d3-8d96-e317cff37aee" />
 
-## Play a Game Locally
+This will install dependencies and prepare everything needed for your snake to run.
 
-Install the [Battlesnake CLI](https://github.com/BattlesnakeOfficial/rules/tree/main/cli)
-* You can [download compiled binaries here](https://github.com/BattlesnakeOfficial/rules/releases)
-* or [install as a go package](https://github.com/BattlesnakeOfficial/rules/tree/main/cli#installation) (requires Go 1.18 or higher)
+---
 
-Command to run a local game
+### 5. Start Your Snake Webserver
 
-```sh
-battlesnake play -W 11 -H 11 --name 'Python Starter Project' --url http://localhost:8000 -g solo --browser
-```
+Click the arrow to the right of the "run" button. Then click **Run Your Snake Webserver**.
 
-## Next Steps
+---
 
-Continue with the [Battlesnake Quickstart Guide](https://docs.battlesnake.com/quickstart) to customize and improve your Battlesnake's behavior.
+### 6. Test Your Snake
 
-**Note:** To play games on [play.battlesnake.com](https://play.battlesnake.com) you'll need to deploy your Battlesnake to a live web server OR use a port forwarding tool like [ngrok](https://ngrok.com/) to access your server locally.
+Click the arrow to the right of the "run" button. Then click **Test Your Snake**.
+
+If everything is setup correctly, a window should promptly open in your browser with a visualization of your snake.
+
+<img width="1275" height="721" alt="Screenshot 2025-08-31 at 4 41 22 PM" src="https://github.com/user-attachments/assets/838ae8ab-567f-4dd0-825d-ffef4f0b50ed" />
