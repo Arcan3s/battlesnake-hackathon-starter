@@ -1,4 +1,4 @@
-modules = ["python-3.12", "bash"]
+modules = ["bash", "python-3.12", "nix"]
 
 [nix]
 channel = "stable-25_05"
@@ -31,12 +31,13 @@ externalPort = 3003
 # Board Visualizer
 [[ports]]
 localPort = 3010
-externalPort = 3010
+externalPort = 3000
 
 # Rules Server
 [[ports]]
 localPort = 9999
-externalPort = 9999
+externalPort = 9000
+exposeLocalhost = true
 
 [workflows]
 runButton = "Run Your Snake"
@@ -99,3 +100,12 @@ args = "bash scripts/setup_submodules.sh"
 
 [deployment]
 run = ["sh", "-c", "python main.py"]
+
+[[workflows.workflow]]
+name = "Run Board and Rules Server"
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash scripts/run_board_rules.sh"
+waitForPort = 9999
