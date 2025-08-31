@@ -66,3 +66,19 @@ Click the arrow to the right of the "run" button. Then click **Test Your Snake**
 If everything is setup correctly, a window should promptly open in your browser with a visualization of your snake.
 
 <img width="1275" height="721" alt="Screenshot 2025-08-31 at 4 41 22 PM" src="https://github.com/user-attachments/assets/838ae8ab-567f-4dd0-825d-ffef4f0b50ed" />
+
+---
+
+## Environment Health Check
+
+Having trouble getting your snake running?  
+
+Click the arrow next to the **Run** button, then select **Run Environment Health Check**.
+
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/1545f5fa-d15b-4703-805d-e6cae2655ca8" />
+
+This will run a script that scans your environment and reports anything that might be missing or misconfigured:
+
+<img width="900" alt="image" src="https://github.com/user-attachments/assets/d28caa0a-ad30-41da-bf25-7b5b3a2ac510" />
+
+
