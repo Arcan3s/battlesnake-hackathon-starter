@@ -55,7 +55,7 @@ task = "shell.exec"
 args = "python main.py"
 
 [[workflows.workflow]]
-name = "Run Board and Rules Server"
+name = "Test Your Snake (Run Snake Webserver first)"
 mode = "sequential"
 
 [[workflows.workflow.tasks]]
@@ -64,7 +64,7 @@ args = "bash scripts/run_board_rules.sh"
 waitForPort = 9999
 
 [[workflows.workflow]]
-name = "Setup Environment"
+name = "Run Environment Setup"
 mode = "sequential"
 
 [[workflows.workflow.tasks]]
@@ -75,9 +75,8 @@ args = "pip install -r requirements.txt"
 task = "shell.exec"
 args = "bash scripts/setup_submodules.sh"
 
-
 [[workflows.workflow]]
-name = "Environment Doctor"
+name = "Run Environment Health Check"
 mode = "sequential"
 
 [[workflows.workflow.tasks]]
