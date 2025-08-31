@@ -49,6 +49,8 @@ Click the arrow to the right of the "run" button. Then click **Run Environment S
 
 This will install dependencies and prepare everything needed for your snake to run.
 
+Running this step may take **a few minutes**.
+
 ---
 
 ### 5. Start Your Snake Webserver
@@ -60,8 +62,6 @@ Click the arrow to the right of the "run" button. Then click **Run Your Snake We
 ### 6. Test Your Snake
 
 Click the arrow to the right of the "run" button. Then click **Test Your Snake**.
-
-Running this step may take **a few minutes** the first time you run it.
 
 If everything is setup correctly, a window should promptly open in your browser with a visualization of your snake.
 
