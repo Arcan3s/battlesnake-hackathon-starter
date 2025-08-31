@@ -39,16 +39,22 @@ else
 fi
 
 # ---------- helpers ----------
-is_http_url() { [[ "$1" =~ ^https?://[^/[:space:]]+(/.*)?$ ]]; }
+is_http_url() { [[ "${1:-}" =~ ^https?://[^/[:space:]]+(/.*)?$ ]]; }
 has_cmd() { command -v "$1" >/dev/null 2>&1; }
-req_pkg_name() {
-  local line="$1"
-  line="${line%%#*}"
-  line="${line// /}"
-  [[ -z "$line" || "$line" == -* ]] && return 1
-  local name="${line%%[<>=![]*}"
-  [[ -z "$name" ]] && return 1
-  printf "%s" "$name"
+
+# returns 0 if dir has at least one non-dot entry (not counting .git contents)
+dir_nonempty() {
+  local d="$1"
+  [[ -d "$d" ]] || return 1
+  # exclude '.' '..' and empty .git file/dir noise; fail if truly empty
+  shopt -s nullglob dotglob
+  local entries=("$d"/*)
+  shopt -u nullglob dotglob
+  # If only .git exists and it's empty, treat as empty
+  if (( ${#entries[@]} == 0 )); then
+    return 1
+  fi
+  return 0
 }
 
 # ---------- ENV: REPLIT_URL ----------
@@ -80,8 +86,11 @@ else
   ok "Python found: $("$PY" -V 2>&1)"
   if [[ -f "$REQ" ]]; then
     missing_pkgs=()
+    # Fast/forgiving check: ensure each named package is present
     while IFS= read -r line || [[ -n "$line" ]]; do
-      pkg="$(req_pkg_name "$line" || true)"
+      line="${line%%#*}"; line="${line// /}"
+      [[ -z "$line" || "$line" == -* ]] && continue
+      pkg="${line%%[<>=![]*}"
       [[ -z "$pkg" ]] && continue
       if ! "$PY" -m pip show "$pkg" >/dev/null 2>&1; then
         missing_pkgs+=("$pkg")
@@ -101,22 +110,74 @@ fi
 
 echo
 
-# ---------- GIT SUBMODULES ----------
+# ---------- GIT SUBMODULES (existence + non-empty + key files) ----------
 info "Checking submodules 📦"
-[[ -d "$SUBMODULE_ROOT" ]] || { err "Submodules root missing: $SUBMODULE_ROOT"; need_setup=true; }
-[[ -d "$BOARD_DIR" ]] || { err "Board submodule missing at: $BOARD_DIR"; need_setup=true; }
-[[ -d "$RULES_DIR" ]] || { err "Rules submodule missing at: $RULES_DIR"; need_setup=true; }
-[[ -d "$SUBMODULE_ROOT" && -d "$BOARD_DIR" && -d "$RULES_DIR" ]] && ok "All submodules present"
+
+# Root exists & non-empty?
+if [[ ! -d "$SUBMODULE_ROOT" ]]; then
+  err "Submodules root missing: $SUBMODULE_ROOT"
+  need_setup=true
+elif ! dir_nonempty "$SUBMODULE_ROOT"; then
+  err "Submodules root exists but is empty: $SUBMODULE_ROOT"
+  need_setup=true
+else
+  ok "Submodules root present: $SUBMODULE_ROOT"
+fi
+
+# Board submodule strict checks
+if [[ ! -d "$BOARD_DIR" ]]; then
+  err "Board submodule missing: $BOARD_DIR"
+  need_setup=true
+elif ! dir_nonempty "$BOARD_DIR"; then
+  err "Board submodule is empty: $BOARD_DIR"
+  need_setup=true
+else
+  if [[ -f "$BOARD_DIR/package.json" ]]; then
+    ok "Board has package.json ✅"
+  else
+    err "Board missing package.json at $BOARD_DIR/package.json"
+    need_setup=true
+  fi
+  if [[ -d "$BOARD_DIR/src" ]] && dir_nonempty "$BOARD_DIR/src"; then
+    ok "Board src/ present and non-empty ✅"
+  else
+    err "Board src/ missing or empty at $BOARD_DIR/src"
+    need_setup=true
+  fi
+fi
+
+# Rules submodule strict checks
+if [[ ! -d "$RULES_DIR" ]]; then
+  err "Rules submodule missing: $RULES_DIR"
+  need_setup=true
+elif ! dir_nonempty "$RULES_DIR"; then
+  err "Rules submodule is empty: $RULES_DIR"
+  need_setup=true
+else
+  if [[ -f "$RULES_DIR/go.mod" ]]; then
+    ok "Rules has go.mod ✅"
+  else
+    err "Rules missing go.mod at $RULES_DIR/go.mod"
+    need_setup=true
+  fi
+fi
+
+# Optional: show submodule status if git exists
+if has_cmd git; then
+  info "git submodule status:"
+  git submodule status || warn "Could not read submodule status"
+fi
 
 echo
 
 # ---------- GO / BATTLESNAKE CLI ----------
 info "Checking Battlesnake CLI binary ⚙️"
 if [[ ! -x "$BS_BIN" ]]; then
-  err "Battlesnake CLI not found at: $BS_BIN"
+  err "Battlesnake CLI not found or not executable at: $BS_BIN"
+  warn "Try building it inside the rules submodule (e.g., make build or go build)"
   need_setup=true
 else
-  ok "Battlesnake CLI built"
+  ok "Battlesnake CLI built at $BS_BIN ✅"
 fi
 
 echo
@@ -138,8 +199,8 @@ else
 fi
 
 if [[ -d "$BOARD_DIR" && -f "$BOARD_DIR/package.json" ]]; then
-  if [[ -d "$BOARD_DIR/node_modules" ]]; then
-    ok "node_modules present in $BOARD_DIR"
+  if [[ -d "$BOARD_DIR/node_modules" ]] && dir_nonempty "$BOARD_DIR/node_modules"; then
+    ok "node_modules present in $BOARD_DIR ✅"
   else
     err "node_modules missing in $BOARD_DIR"
     info "Try: (cd \"$BOARD_DIR\" && npm ci)"
@@ -160,6 +221,10 @@ fi
 if [[ "$need_setup" == true ]]; then
   err "Some checks failed."
   say "🛠️  Run your setup script to fix this (e.g. ${SETUP_HINT})"
+  say "   - git submodule update --init --recursive"
+  say "   - pip install -r ${REQ}"
+  say "   - build Battlesnake CLI in rules (creates ${BS_BIN})"
+  say "   - (cd ${BOARD_DIR} && npm ci)"
   exit 1
 else
   ok "All checks passed — you're good to go! 🚀"
