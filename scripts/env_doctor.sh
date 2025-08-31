@@ -5,7 +5,7 @@ set -euo pipefail
 # Battlesnake Env Doctor 🐍🩺
 # -------------------------------
 
-SETUP_HINT="./setup_env.sh"   # update if your setup script is named differently
+SETUP_HINT="Run Environment Setup ./scripts/setup_submodules.sh"   # update if your setup script is named differently
 
 SUBMODULE_ROOT="${SUBMODULE_ROOT:-submodules}"
 BOARD_DIR="${BOARD_DIR:-$SUBMODULE_ROOT/board}"
