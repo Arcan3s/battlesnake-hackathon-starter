@@ -54,6 +54,19 @@ args = "pip install -r requirements.txt"
 task = "shell.exec"
 args = "python main.py"
 
+[[workflows.workflow]]
+name = "Setup Environment"
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pip install -r requirements.txt"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash scripts/setup_submodules.sh"
+
+
 # [[workflows.workflow]]
 # name = "Run 3 Test Snake Webservers"
 # mode = "parallel"
