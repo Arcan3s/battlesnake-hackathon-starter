@@ -61,6 +61,8 @@ Click the arrow to the right of the "run" button. Then click **Run Your Snake We
 
 Click the arrow to the right of the "run" button. Then click **Test Your Snake**.
 
+Running this step may take **a few minutes** the first time you run it.
+
 If everything is setup correctly, a window should promptly open in your browser with a visualization of your snake.
 
 <img width="1275" height="721" alt="Screenshot 2025-08-31 at 4 41 22 PM" src="https://github.com/user-attachments/assets/838ae8ab-567f-4dd0-825d-ffef4f0b50ed" />
