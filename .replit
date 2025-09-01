@@ -84,24 +84,24 @@ task = "shell.exec"
 args = "bash scripts/env_doctor.sh"
 
 
-# [[workflows.workflow]]
-# name = "Run 3 Test Snake Webservers"
-# mode = "parallel"
+[[workflows.workflow]]
+name = "Run 3 Test Snake Webservers"
+mode = "parallel"
 
-# [[workflows.workflow.tasks]]
-# task = "shell.exec"
-# args = "PORT=5001 SNAKE_ID=A python main.py"
-# waitForPort = 5001
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "PORT=5001 SNAKE_ID=A python -m examples.circle"
+waitForPort = 5001
 
-# [[workflows.workflow.tasks]]
-# task = "shell.exec"
-# args = "PORT=5002 SNAKE_ID=B python main.py"
-# waitForPort = 5002
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "PORT=5002 SNAKE_ID=B python -m examples.hungry"
+waitForPort = 5002
 
-# [[workflows.workflow.tasks]]
-# task = "shell.exec"
-# args = "PORT=5003 SNAKE_ID=C python main.py"
-# waitForPort = 5003
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "PORT=5003 SNAKE_ID=C python -m examples.dodge"
+waitForPort = 5003
 
 [deployment]
 run = ["sh", "-c", "python main.py"]
