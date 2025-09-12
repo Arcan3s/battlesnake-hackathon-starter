@@ -101,7 +101,7 @@ def move(game_state: typing.Dict) -> typing.Dict:
 
 When you modify `main.py`, make sure you **ALWAYS** stop, then start your **Snake Webserver** via the workflow page:
 
-<img width="2320" height="1194" alt="image" src="https://github.com/user-attachments/assets/33d13d5d-00b1-4604-a6e7-b2f164c20759" />
+<img width="2342" height="1212" alt="image" src="https://github.com/user-attachments/assets/319d8573-517e-4ba2-a456-4365c9db8c6f" />
 
 
 
