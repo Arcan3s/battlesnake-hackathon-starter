@@ -69,12 +69,44 @@ If everything is setup correctly, a window should promptly open in your browser 
 
 <img width="1275" height="721" alt="Screenshot 2025-08-31 at 4 41 22 PM" src="https://github.com/user-attachments/assets/838ae8ab-567f-4dd0-825d-ffef4f0b50ed" />
 
+If you want to run another match, you're need to stop then start the "Test Your Snake" workflow:
+
+<img width="2332" height="1198" alt="image" src="https://github.com/user-attachments/assets/d8fc2ec0-af21-4eed-933d-086387d0b52a" />
+
 While your snake is running, you can see the console output of your snake and the 3 test snakes in `./examples` in the console tab:
 
 <img width="3434" height="1754" alt="image" src="https://github.com/user-attachments/assets/74270c69-98e9-4f63-9473-2209084a9593" />
 
 
 ---
+
+## Coding Your Snake
+
+To start coding your snake, open the **`main.py`** file (this is where your snakes' logic lives):
+
+<img width="3452" height="1782" alt="image" src="https://github.com/user-attachments/assets/b8ebce02-3bd2-4ea2-87fb-99e2d430af12" />
+
+The most important function is `move(game_state)`. 
+
+Battlesnake calls this every turn and sends you a JSON payload (`game_state`) describing the current board and your snake (an example of that request is shown in the [Battlesnake docs](https://docs.battlesnake.com/api/example-move).
+
+Your job is to read that data and return one of: "up", "down", "left", or "right".
+
+For example, this code would result in your snake going down every turn.
+
+```python
+def move(game_state: typing.Dict) -> typing.Dict:
+   return {"move": "down"}
+```
+
+When you modify `main.py`, make sure you **ALWAYS** stop, then start your **Snake Webserver** via the workflow page:
+
+<img width="2320" height="1194" alt="image" src="https://github.com/user-attachments/assets/33d13d5d-00b1-4604-a6e7-b2f164c20759" />
+
+
+
+
+
 
 ## Environment Health Check
 
