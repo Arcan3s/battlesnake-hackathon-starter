@@ -69,7 +69,7 @@ If everything is setup correctly, a window should promptly open in your browser 
 
 <img width="1275" height="721" alt="Screenshot 2025-08-31 at 4 41 22 PM" src="https://github.com/user-attachments/assets/838ae8ab-567f-4dd0-825d-ffef4f0b50ed" />
 
-While your snake is running, you can see the console output of your snake, the 3 test snakes in `./examples` in the console tab:
+While your snake is running, you can see the console output of your snake and the 3 test snakes in `./examples` in the console tab:
 
 <img width="3434" height="1754" alt="image" src="https://github.com/user-attachments/assets/74270c69-98e9-4f63-9473-2209084a9593" />
 
