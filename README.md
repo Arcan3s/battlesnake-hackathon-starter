@@ -46,6 +46,7 @@ Click on the `.env` file in the file explorer and paste your Replit URL as shown
 **NOTE:** Make sure to hit **CTRL+S** to save this change. If you do not save this change, your setup will not work.
 
 <img width="2222" height="1152" alt="image" src="https://github.com/user-attachments/assets/ac9d2a52-abd1-456d-a409-a4b24fef71bb" />
+
 ---
 
 ### 4. Test Your Snake
