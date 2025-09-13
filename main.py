@@ -1,3 +1,6 @@
+import heapq
+import typing
+
 # Welcome to
 # __________         __    __  .__                               __
 # \______   \_____ _/  |__/  |_|  |   ____   ______ ____ _____  |  | __ ____
@@ -9,9 +12,7 @@
 #
 # To get you started we've included code to prevent your Battlesnake from moving backwards.
 # For more info see docs.battlesnake.com
-
 import random
-import typing
 
 
 # info is called when you create your Battlesnake on play.battlesnake.com
@@ -42,54 +43,73 @@ def end(game_state: typing.Dict):
 # move is called on every turn and returns your next move
 # Valid moves are "up", "down", "left", or "right"
 # See https://docs.battlesnake.com/api/example-move for available data
+def dijkstra(board_width, board_height, start, dangers, food):
+    distances = {start: 0}
+    queue = [(0, start)]
+    came_from = {}
+
+    while queue:
+        current_dist, current = heapq.heappop(queue)
+
+        if current in food:
+            path = []
+            while current != start:
+                path.append(current)
+                current = came_from[current]
+            path.reverse()
+            return path
+
+        for dx, dy, direction in [(0, 1, "up"), (0, -1, "down"),
+                                  (-1, 0, "left"), (1, 0, "right")]:
+            nx, ny = current[0] + dx, current[1] + dy
+            neighbor = (nx, ny)
+
+            if (0 <= nx < board_width and 0 <= ny < board_height
+                    and neighbor not in dangers):
+                new_dist = current_dist + 1
+                if neighbor not in distances or new_dist < distances[neighbor]:
+                    distances[neighbor] = new_dist
+                    heapq.heappush(queue, (new_dist, neighbor))
+                    came_from[neighbor] = current
+
+    return []
+
+
 def move(game_state: typing.Dict) -> typing.Dict:
+    my_head = game_state["you"]["body"][0]
+    head_pos = (int(my_head["x"]), int(my_head["y"]))
 
-    is_move_safe = {"up": True, "down": True, "left": True, "right": True}
+    dangers = set()
+    for snake in game_state["board"]["snakes"]:
+        for segment in snake["body"]:
+            dangers.add((int(segment["x"]), int(segment["y"])))
 
-    # We've included code to prevent your Battlesnake from moving backwards
-    my_head = game_state["you"]["body"][0]  # Coordinates of your head
-    my_neck = game_state["you"]["body"][1]  # Coordinates of your "neck"
+    food = [(int(f["x"]), int(f["y"])) for f in game_state["board"]["food"]]
+    board_width = game_state["board"]["width"]
+    board_height = game_state["board"]["height"]
 
-    if my_neck["x"] < my_head["x"]:  # Neck is left of head, don't move left
-        is_move_safe["left"] = False
+    path = dijkstra(board_width, board_height, head_pos, dangers, food)
 
-    elif my_neck["x"] > my_head["x"]:  # Neck is right of head, don't move right
-        is_move_safe["right"] = False
+    if path:
+        next_pos = path[0]
+        dx, dy = next_pos[0] - head_pos[0], next_pos[1] - head_pos[1]
+        move_map = {
+            (0, 1): "up",
+            (0, -1): "down",
+            (-1, 0): "left",
+            (1, 0): "right"
+        }
+        return {"move": move_map[(dx, dy)]}
 
-    elif my_neck["y"] < my_head["y"]:  # Neck is below head, don't move down
-        is_move_safe["down"] = False
-
-    elif my_neck["y"] > my_head["y"]:  # Neck is above head, don't move up
-        is_move_safe["up"] = False
-
-    # TODO: Step 1 - Prevent your Battlesnake from moving out of bounds
-    # board_width = game_state['board']['width']
-    # board_height = game_state['board']['height']
-
-    # TODO: Step 2 - Prevent your Battlesnake from colliding with itself
-    # my_body = game_state['you']['body']
-
-    # TODO: Step 3 - Prevent your Battlesnake from colliding with other Battlesnakes
-    # opponents = game_state['board']['snakes']
-
-    # Are there any safe moves left?
     safe_moves = []
-    for move, isSafe in is_move_safe.items():
-        if isSafe:
-            safe_moves.append(move)
+    for move_dir, (dx, dy) in [("up", (0, 1)), ("down", (0, -1)),
+                               ("left", (-1, 0)), ("right", (1, 0))]:
+        nx, ny = head_pos[0] + dx, head_pos[1] + dy
+        if (0 <= nx < board_width and 0 <= ny < board_height
+                and (nx, ny) not in dangers):
+            safe_moves.append(move_dir)
 
-    if len(safe_moves) == 0:
-        print(f"MOVE {game_state['turn']}: No safe moves detected! Moving down")
-        return {"move": "down"}
-
-    # Choose a random move from the safe ones
-    next_move = random.choice(safe_moves)
-
-    # TODO: Step 4 - Move towards food instead of random, to regain health and survive longer
-    # food = game_state['board']['food']
-
-    print(f"MOVE {game_state['turn']}: {next_move}")
-    return {"move": next_move}
+    return {"move": safe_moves[0] if safe_moves else "up"}
 
 
 # Start server when `python main.py` is run
