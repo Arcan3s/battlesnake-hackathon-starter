@@ -124,6 +124,14 @@ This will allow you and your teammates to collaboriate on the project alike to h
 
 ---
 
+## Being Ready For The Tournament
+
+To be ready for the tournament, make sure your snake has no syntax errors and is **left running** as shown below:
+
+<img width="2140" height="1108" alt="image" src="https://github.com/user-attachments/assets/90d60c9a-3e9a-4e61-a4e4-9f6905696d18" />
+
+
+---
 
 ## Environment Health Check
 
