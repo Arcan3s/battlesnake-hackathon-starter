@@ -51,3 +51,5 @@ log "Pinned SHAs:"
 printf "  board: %s\n" "$(git -C "$BOARD_DIR" rev-parse --short HEAD)"
 printf "  rules: %s\n" "$(git -C "$RULES_DIR" rev-parse --short HEAD)"
 log "Setup complete."
+
+chmod +x scripts/versus_friend.sh
