@@ -7,11 +7,14 @@ This is the starting template for the [Carleton Computer Science Society's](http
 ## Getting Started
 
 ### 1. Create Your Replit
+
 Click the button below to create a Replit project from this template:
 
 [![Run on Replit](https://repl.it/badge/github/BattlesnakeOfficial/starter-snake-python)](https://replit.com/@MathyouMB/battlesnake-hackathon-starter)
 
 You **will NEED** to have a Replit account in order to "remix" the project template.
+
+**NOTE:** Make sure you are logged into Replit first as you may hit an error if you are not logged in when you click "Remix This App".
 
 ---
 
