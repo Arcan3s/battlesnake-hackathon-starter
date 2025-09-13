@@ -70,6 +70,12 @@ If everything is setup correctly, a window should promptly open in your browser 
 
 <img width="1275" height="721" alt="Screenshot 2025-08-31 at 4 41 22 PM" src="https://github.com/user-attachments/assets/838ae8ab-567f-4dd0-825d-ffef4f0b50ed" />
 
+**NOTE:** Your browser may try to block the pop up. To allow popups from Replit, click the icons as shown below (Chrome):
+
+Other browsers should have an equivalent.
+
+<img width="2136" height="1148" alt="image" src="https://github.com/user-attachments/assets/b40d4674-71d6-4aab-90e4-ecd8dcbfd25d" />
+
 If you want to run another match, you need to stop then start the "Test Your Snake" workflow:
 
 <img width="2332" height="1198" alt="image" src="https://github.com/user-attachments/assets/d8fc2ec0-af21-4eed-933d-086387d0b52a" />
